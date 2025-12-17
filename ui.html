@@ -1,11 +1,20 @@
 <html>
 <body>
+<textarea id="copy-area" style="position: absolute; left: -9999px;"></textarea>
 <script>
-window.onmessage = async (event) => {
+function copyToClipboard(text) {
+  const textarea = document.getElementById('copy-area');
+  textarea.value = text;
+  textarea.select();
+  document.execCommand('copy');
+  return true;
+}
+
+window.onmessage = (event) => {
   const msg = event.data.pluginMessage;
   if (msg.type === 'copy-to-clipboard') {
     try {
-      await navigator.clipboard.writeText(msg.text);
+      copyToClipboard(msg.text);
       parent.postMessage({ pluginMessage: { type: 'copied', text: msg.text } }, '*');
     } catch (err) {
       parent.postMessage({ pluginMessage: { type: 'error', message: err.message } }, '*');
