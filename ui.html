@@ -1,0 +1,17 @@
+<html>
+<body>
+<script>
+window.onmessage = async (event) => {
+  const msg = event.data.pluginMessage;
+  if (msg.type === 'copy-to-clipboard') {
+    try {
+      await navigator.clipboard.writeText(msg.text);
+      parent.postMessage({ pluginMessage: { type: 'copied', text: msg.text } }, '*');
+    } catch (err) {
+      parent.postMessage({ pluginMessage: { type: 'error', message: err.message } }, '*');
+    }
+  }
+};
+</script>
+</body>
+</html>

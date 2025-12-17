@@ -3,7 +3,8 @@
   "id": "1583195678926495244",
   "api": "1.0.0",
   "main": "code.js",
-  "capabilities": [],
+  "ui": "ui.html",
+  "capabilities": ["clipboardWrite"],
   "enableProposedApi": false,
   "documentAccess": "dynamic-page",
   "editorType": [
